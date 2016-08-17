@@ -155,7 +155,7 @@ public class DefaultCommandHandler implements CommandHandler {
             public Printer print(boolean isF, String message) {
 
                 // 修复print的并发判断问题
-                if(!isFinishRef.get()) {
+                if(isFinishRef.get()) {
                     return this;
                 }
 
