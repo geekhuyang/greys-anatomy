@@ -154,6 +154,11 @@ public class DefaultCommandHandler implements CommandHandler {
             @Override
             public Printer print(boolean isF, String message) {
 
+                // 修复print的并发判断问题
+                if(!isFinishRef.get()) {
+                    return this;
+                }
+
                 final BlockingQueue<String> writeQueue = session.getWriteQueue();
                 if (null != message) {
                     if (!writeQueue.offer(message)) {
